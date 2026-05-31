@@ -1,0 +1,84 @@
+#include <Arduino.h>
+#include <WiFi.h>
+
+const char *ssid = "agiosdata";
+const char *password = "#essacasaehsua";
+
+// Atualizado para o padrão estável do ESP32
+WiFiServer server(80);
+
+// Definimos o pino 23 onde seu LED está conectado fisicamente
+const int pinoLED = 23; 
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Agora configuramos o pino CERTO onde o LED está espetado
+  pinMode(pinoLED, OUTPUT);  
+
+  delay(10);
+
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected.");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  server.begin();
+}
+
+void loop() {
+  // Atualizado para o padrão estável do ESP32
+  WiFiClient client = server.accept();  
+
+  if (client) {                             
+    Serial.println("New Client.");  
+    String currentLine = "";        
+    while (client.connected()) {    
+      if (client.available()) {     
+        char c = client.read();     
+        Serial.write(c);            
+        if (c == '\n') {            
+
+          if (currentLine.length() == 0) {
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-type:text/html");
+            client.println();
+
+            // Texto atualizado para indicar o pino correto na página web
+            client.print("Click <a href=\"/H\">here</a> to turn the LED on pin 23 on.<br>");
+            client.print("Click <a href=\"/L\">here</a> to turn the LED on pin 23 off.<br>");
+
+            client.println();
+            break;
+          } else {  
+            currentLine = "";
+          }
+        } else if (c != '\r') {  
+          currentLine += c;      
+        }
+
+        // Verifica os comandos e aciona a GPIO 23
+        if (currentLine.endsWith("GET /H")) {
+          digitalWrite(pinoLED, HIGH);  // Liga o LED na GPIO23
+        }
+        if (currentLine.endsWith("GET /L")) {
+          digitalWrite(pinoLED, LOW);   // Desliga o LED na GPIO23
+        }
+      }
+    }
+    client.stop();
+    Serial.println("Client Disconnected.");
+  }
+}
