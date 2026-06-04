@@ -1,8 +1,9 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
-const char *ssid = "minhaRede";
-const char *password = "minhaSenha";
+const char *ssid = "minhaRedeRoteada;
+//rede 2,4 GHZ no maximo
+const char *password = "imnhaSenha";
 
 // Atualizado para o padrão estável do ESP32
 WiFiServer server(80);
@@ -56,9 +57,33 @@ void loop() {
             client.println("Content-type:text/html");
             client.println();
 
-            // Texto atualizado para indicar o pino correto na página web
-            client.print("Click <a href=\"/H\">here</a> to turn the LED on pin 23 on.<br>");
-            client.print("Click <a href=\"/L\">here</a> to turn the LED on pin 23 off.<br>");
+           // Logotipo do Centro Paula Souza
+client.print("<img src='https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2022/09/logo-cps-2022.svg' style='max-width:300px;'><br><br>");
+
+// Título Principal
+client.print("<h1 style='font-family:Arial, sans-serif; color:#333;'>Sejam bem-vindos ao Sistema de Internet das Coisas</h1><br>");
+
+// --- ESTILIZAÇÃO DOS BOTÕES EM CSS ---
+client.print("<style>");
+client.print(".botao {");
+client.print("  display: inline-block;");
+client.print("  padding: 15px 30px;");
+client.print("  font-size: 18px;");
+client.print("  font-family: Arial, sans-serif;");
+client.print("  font-weight: bold;");
+client.print("  text-decoration: none;");
+client.print("  color: #ffffff !important;"); // Agora sim, dentro do client.print correto!
+client.print("  border-radius: 8px;");
+client.print("  margin: 10px;");
+client.print("  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);");
+client.print("}");
+client.print(".btn-ligar { background-color: #2ECC71; }");    // Verde
+client.print(".btn-desligar { background-color: #E74C3C; }"); // Vermelho
+client.print("</style>");
+
+// --- EXIBIÇÃO DOS BOTÕES ---
+client.print("<a href=\"/H\" class=\"botao btn-ligar\">LIGAR O LED</a>");
+client.print("<a href=\"/L\" class=\"botao btn-desligar\">DESLIGAR O LED</a><br>");
 
             client.println();
             break;
