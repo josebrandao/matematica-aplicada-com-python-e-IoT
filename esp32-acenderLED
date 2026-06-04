@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
-const char *ssid = "agiosdata";
-const char *password = "#essacasaehsua";
+const char *ssid = "minhaRede";
+const char *password = "minhaSenha";
 
 // Atualizado para o padrão estável do ESP32
 WiFiServer server(80);
