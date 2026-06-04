@@ -1,0 +1,9 @@
+void setup() {
+  Serial.begin(115200);
+  Serial.print("Memoria RAM livre: ");
+  Serial.print(ESP.getFreeHeap());
+  Serial.println(" bytes");
+}
+
+void loop() {
+}
