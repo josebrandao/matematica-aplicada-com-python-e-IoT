@@ -1,0 +1,13 @@
+5. Identificar endereço MAC do Wi-Fi
+
+Cada ESP32 possui um identificador único.
+
+void setup() {
+  Serial.begin(115200);
+
+  Serial.print("MAC: ");
+  Serial.println(WiFi.macAddress());
+}
+
+void loop() {
+}
