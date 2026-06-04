@@ -1,0 +1,16 @@
+//6. Teste dos GPIOs
+//Você pode verificar se um pino está em HIGH ou LOW:
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(4, INPUT_PULLUP);
+}
+
+void loop() {
+
+  int estado = digitalRead(4);
+
+  Serial.println(estado);
+
+  delay(500);
+}
