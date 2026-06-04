@@ -1,0 +1,33 @@
+// A função setup() executa apenas uma vez
+// quando a ESP32 é ligada ou reiniciada.
+void setup() {
+
+  // Inicializa a comunicação serial
+  // na velocidade de 115200 bits por segundo.
+  // Isso permite enviar mensagens para o
+  // Monitor Serial da IDE Arduino.
+  Serial.begin(115200);
+}
+
+// A função loop() executa continuamente
+// enquanto a ESP32 estiver ligada.
+void loop() {
+
+  // Envia o texto para o Monitor Serial.
+  // println significa "print line",
+  // ou seja, imprime o texto e pula para a próxima linha.
+  Serial.println("ESP32 funcionando!");
+
+  // Pausa a execução por 1000 milissegundos
+  // (1 segundo) antes de repetir o loop.
+  delay(1000);
+}
+
+/*
+Linha	Conceito
+void setup()	Inicialização
+Serial.begin(115200)	Comunicação Serial
+void loop()	Repetição contínua
+Serial.println()	Saída de dados
+delay(1000)	Temporização
+*/
