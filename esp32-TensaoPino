@@ -1,0 +1,17 @@
+//4. Ler a tensão de um pino
+
+//Para isso você pode usar o potenciômetro ou um sensor analógico.
+
+void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+
+  int leitura = analogRead(34);
+
+  Serial.print("ADC: ");
+  Serial.println(leitura);
+
+  delay(1000);
+}
