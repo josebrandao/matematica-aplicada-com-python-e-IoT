@@ -5,3 +5,6 @@ void setup() {
   Serial.print(ESP.getFlashChipSize() / 1024 / 1024);
   Serial.println(" MB");
 }
+
+void loop() {
+}
